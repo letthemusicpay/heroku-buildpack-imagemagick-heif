@@ -18,11 +18,6 @@ RUN curl -L https://github.com/strukturag/libheif/releases/download/v1.12.0/libh
   && make \
   && make install
 
-# RUN curl -L http://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.2.tar.gz | tar zx \
-#   && cd libwebp-1.2.2 \
-#   && ./configure --prefix=/usr/src/imagemagick \
-#   && make \
-#   && make install
 
 RUN cd /opt \
   &&   curl -L http://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.2.tar.gz | tar zx \
@@ -47,6 +42,12 @@ RUN cd /usr/src/ \
   && tar xf ImageMagick-7.1.0-22.tar.gz \
   && cd ImageMagick-7* \
   && ./configure --with-heic=yes --with-webp=yes --prefix=/usr/src/imagemagick \
+  && make \
+  && make install
+
+RUN curl -L http://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.2.tar.gz | tar zx \
+  && cd libwebp-1.2.2 \
+  && ./configure --prefix=/usr/src/imagemagick \
   && make \
   && make install
 
