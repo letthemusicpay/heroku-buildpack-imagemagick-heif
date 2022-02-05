@@ -18,11 +18,19 @@ RUN curl -L https://github.com/strukturag/libheif/releases/download/v1.12.0/libh
   && make \
   && make install
 
-RUN curl -L http://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.2.tar.gz | tar zx \
+# RUN curl -L http://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.2.tar.gz | tar zx \
+#   && cd libwebp-1.2.2 \
+#   && ./configure --prefix=/usr/src/imagemagick \
+#   && make \
+#   && make install
+
+RUN cd /opt \
+  &&   curl -L http://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.2.2.tar.gz | tar zx \
   && cd libwebp-1.2.2 \
-  && ./configure --prefix=/usr/src/imagemagick \
+  && ./configure  \
   && make \
   && make install
+
 
 ENV PATH="/usr/src/imagemagick/bin:$PATH:\$PATH"
 ENV CPPPATH="/usr/src/imagemagick/include:$CPPPATH"
@@ -50,8 +58,9 @@ RUN cd /usr/src/ \
 # RUN cd /usr/src/imagemagick \
 #   && strip lib/*.a lib/lib*.so*
 
-# RUN cd /usr/src/imagemagick \
-#   && rm -rf build \
-#   && mkdir build \
-#   && tar czf \
-#   /usr/src/imagemagick/build/imagemagick.tar.gz bin include lib
+RUN cd /usr/src/imagemagick \
+  && rm -rf build \
+  && mkdir build \
+  && tar czf \
+  /usr/src/imagemagick/build/imagemagick.tar.gz bin include lib
+CMD ["tail", "-f", "/dev/null"]
